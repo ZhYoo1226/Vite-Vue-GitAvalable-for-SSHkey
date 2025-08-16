@@ -1,5 +1,5 @@
 <template>
-    <RouterLink to="/log">登录 </RouterLink>
+    <RouterLink to="/log">登录 | </RouterLink>
     <RouterLink to="/reg">注册</RouterLink>
     
     <router-view></router-view>

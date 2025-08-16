@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-    import logform from '../../components/business/logform.vue'
+    import logform from "@business/logform.vue"
 </script>
 
 <style lang="scss" scoped>

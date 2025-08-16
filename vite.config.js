@@ -5,6 +5,8 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
+
+
 // https://vite.dev/config/
 export default defineConfig(({ command, mode }) => {
 
@@ -25,6 +27,8 @@ export default defineConfig(({ command, mode }) => {
   } else {
     console.log('你并未学会vite的script启动方法', 'comand为', command)
   }
+
+  console.log("__dirname是",__dirname)
 
   return {
     envPrefix: 'VITE_',
@@ -53,7 +57,11 @@ export default defineConfig(({ command, mode }) => {
     },
     resolve: {
       alias: {
-        "@": path.resolve(__dirname + './src')
+        //path.resolve的参数问题
+        //绝对根目录+相对路径（可以./ or 可以不写）
+        //注意：函数使用,分隔  不能写成/src（绝对路径）
+        "@": path.resolve(__dirname , './src'),
+        "@business": path.resolve(__dirname,'src/components/business')
       }
     },
     build: {
