@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
 import './styles/style.css'
 import App from './App.vue'
+import router from './routes/index'
 
-createApp(App).mount('#app')
+createApp(App).use(router).mount('#app')
 
 if(import.meta.env.VITE_BASE_URL){
     console.log('你找到了你想要的环境变量')
