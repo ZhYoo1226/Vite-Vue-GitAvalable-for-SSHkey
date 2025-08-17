@@ -1,18 +1,34 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter } from 'vue-router'
 
-import loginview from '../views/Login/LoginView.vue'
-import log from '../views/Login/log.vue'
-import reg from '../views/Login/reg.vue'
+import loginpage from '../views/Login/LoginPage.vue'
+import logform from '@business/logform.vue'
+import regform from '@business/regform.vue'
+import loginview from '@business/loginview.vue'
 
 const routes = [
-    { path: '/log', component: log },
-    { path: "/reg", component: reg },
-    { path: '/:id', component: loginview },
-
+    {
+        name: 'loginpage',
+        path: '/',
+        component: loginpage,
+        children: [
+            {
+                name: 'loginview',
+                path: 'loginview',
+                component: loginview,
+                children: [
+                    { name: 'logform', path: 'logform', component: logform },
+                    { name: 'regform', path: 'regform', component: regform }
+                ]
+            },
+        ]
+    }
 ]
 
 const router = createRouter({
-    history: createMemoryHistory(),
+    //hash模式，createWebHashHistory
+    //history模式,createWebHistory
+    //memory模式,createMemoryHistory
+    history: createWebHistory(),
     routes,
 })
 

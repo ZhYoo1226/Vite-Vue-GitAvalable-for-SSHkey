@@ -1,6 +1,6 @@
 <script setup>
 // import HelloWorld from './views/HelloWorld.vue'
-import LoginView from './views/Login/LoginView.vue';
+import LoginPage from './views/Login/LoginPage.vue';
 </script>
 
 <template>
@@ -13,7 +13,7 @@ import LoginView from './views/Login/LoginView.vue';
     </a>
   </div>
   <!-- <HelloWorld msg="Vite + Vue" /> -->
-  <LoginView />
+  <LoginPage />
 </template>
 
 <style scoped>
