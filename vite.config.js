@@ -61,7 +61,9 @@ export default defineConfig(({ command, mode }) => {
         //绝对根目录+相对路径（可以./ or 可以不写）
         //注意：函数使用,分隔  不能写成/src（绝对路径）
         "@": path.resolve(__dirname , './src'),
-        "@business": path.resolve(__dirname,'src/components/business')
+        "@business": path.resolve(__dirname,'src/components/business'),
+        "@common":path.resolve(__dirname,'src/components/common'),
+        "@Login":path.resolve(__dirname,'src/views/Login')
       }
     },
     build: {
