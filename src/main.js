@@ -1,9 +1,10 @@
 import { createApp } from 'vue'
 import './styles/style.css'
 import App from './App.vue'
-import router from './routes/index'
+import router from './router/index'
+import ElementPlus from 'element-plus'
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router,ElementPlus).mount('#app')
 
 if(import.meta.env.VITE_BASE_URL){
     console.log('你找到了你想要的环境变量')

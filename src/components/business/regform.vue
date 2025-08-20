@@ -1,124 +1,155 @@
 <template>
-    <el-form :model="form" label-width="auto" style="max-width: 600px">
-        username
-        <el-input v-model="input" style="width: 240px" placeholder="Please input" />
-        <br />
-        <el-form
-    ref="ruleFormRef"
-    style="max-width: 600px"
-    :model="ruleForm"
-    status-icon
-    :rules="rules"
-    label-width="auto"
-    class="demo-ruleForm"
-  >
-
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-        v-model="ruleForm.checkPass"
-        type="password"
-        autocomplete="off"
-      />
-    </el-form-item>
-  <div class="mb-2 ml-4">
-    <el-radio-group v-model="radio1">
-      <el-radio value="1" size="large">管理员</el-radio>
-      <el-radio value="2" size="large">用户</el-radio>
-    </el-radio-group>
-  </div>
-</el-form>
-        <el-form-item>
-            <el-button type="primary" @click="onSubmit">注册</el-button>
-            <el-button>取消</el-button>
-        </el-form-item>
+  <div class="registration-form">
+    <el-form 
+      :model="form" 
+      label-width="100px" 
+      style="max-width: 500px" 
+      :rules="rules" 
+      ref="formRef"
+    >
+      <el-form-item label="用户名" prop="username">
+        <el-input 
+          v-model="form.username" 
+          placeholder="请输入用户名" 
+        />
+      </el-form-item>
+      
+      <el-form-item label="密码" prop="password">
+        <el-input 
+          v-model="form.password" 
+          type="password" 
+          show-password
+          placeholder="请输入密码" 
+        />
+        <div v-if="form.password" class="password-hint">
+          当前长度: {{ form.password.length }} 位 (至少6位)
+        </div>
+      </el-form-item>
+      
+      <el-form-item label="确认密码" prop="confirmPassword">
+        <el-input 
+          v-model="form.confirmPassword" 
+          type="password" 
+          show-password
+          placeholder="请再次输入密码" 
+        />
+      </el-form-item>
+      
+      <el-form-item label="居住地" prop="region">
+        <el-select v-model="form.region" placeholder="请选择居住地" style="width: 100%">
+          <el-option label="上海" value="shanghai" />
+          <el-option label="北京" value="beijing" />
+          <el-option label="武汉" value="wuhan" />
+          <el-option label="青岛" value="qingdao" />
+          <el-option label="南京" value="nanjing" />
+          <el-option label="厦门" value="xiamen" />
+          <el-option label="黑龙江" value="heilongjiang" />
+          <el-option label="乌鲁木齐" value="wulumuqi" />
+          <el-option label="广州" value="guangzhou" />
+          <el-option label="重庆" value="chongqing" />
+          <el-option label="成都" value="chengdu" />
+          <el-option label="浙江" value="zhejiang" />
+        </el-select>
+      </el-form-item>
+      
+      <el-form-item label="身份配置" prop="userType">
+        <el-radio-group v-model="form.userType">
+          <el-radio label="user">用户</el-radio>
+          <el-radio label="admin">管理员</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">注册</el-button>
+        <el-button @click="resetForm" style="margin-left: 10px">重置</el-button>
+      </el-form-item>
     </el-form>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
 
-const radio1 = ref('1')
+// 表单引用
+const formRef = ref<FormInstance>()
 
-// do not use same name with ref
-const ruleFormRef = ref<FormInstance>()
-
-const checkAge = (rule: any, value: any, callback: any) => {
-  if (!value) {
-    return callback(new Error('Please input the age'))
-  }
-  setTimeout(() => {
-    if (!Number.isInteger(value)) {
-      callback(new Error('Please input digits'))
-    } else {
-      if (value < 18) {
-        callback(new Error('Age must be greater than 18'))
-      } else {
-        callback()
-      }
-    }
-  }, 1000)
-}
-
-const validatePass = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('Please input the password'))
-  } else {
-    if (ruleForm.checkPass !== '') {
-      if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('checkPass')
-    }
-    callback()
-  }
-}
-const validatePass2 = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('Please input the password again'))
-  } else if (value !== ruleForm.pass) {
-    callback(new Error("Two inputs don't match!"))
-  } else {
-    callback()
-  }
-}
-
-const ruleForm = reactive({
-  pass: '',
-  checkPass: '',
-})
-
-const rules = reactive<FormRules<typeof ruleForm>>({
-  pass: [{ validator: validatePass, trigger: 'blur' }],
-  checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-})
-
-const submitForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.validate((valid) => {
-    if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!')
-    }
-  })
-}
-
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.resetFields()
-}
-
+// 表单数据
 const form = reactive({
-    name: '',
-    password: '',
+  username: '',
+  password: '',
+  confirmPassword: '',
+  region: '',
+  userType: ''
 })
 
-const input = ref('')
+// 自定义验证规则
+const validateConfirmPassword = (rule: any, value: any, callback: any) => {
+  if (!value) {
+    callback(new Error('请确认密码'))
+  } else if (value !== form.password) {
+    callback(new Error('两次输入的密码不一致'))
+  } else {
+    callback()
+  }
+}
 
-const onSubmit = () => {
-    console.log('submit!')
+// 表单验证规则
+const rules = reactive<FormRules>({
+  username: [
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 3, max: 20, message: '用户名长度应在3-20个字符之间', trigger: 'blur' }
+  ],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 6, message: '密码至少6位', trigger: 'blur' },
+    { max: 20, message: '密码不超过20位', trigger: 'blur' }
+  ],
+  confirmPassword: [
+    { required: true, message: '请再次输入密码', trigger: 'blur' },
+    { validator: validateConfirmPassword, trigger: 'blur' }
+  ],
+  region: [
+    { required: true, message: '请选择居住地', trigger: 'change' }
+  ],
+  userType: [
+    { required: true, message: '请选择身份配置', trigger: 'change' }
+  ]
+})
+
+// 提交表单
+const onSubmit = async () => {
+  if (!formRef.value) return
+
+  try {
+    const valid = await formRef.value.validate()
+    if (valid) {
+      console.log('表单提交数据:', form)
+      ElMessage.success('注册成功!')
+      // 这里可以添加实际的注册逻辑，如调用 API
+    }
+  } catch (error) {
+    console.log('验证失败:', error)
+    ElMessage.error('请检查表单填写内容')
+  }
+}
+
+// 重置表单
+const resetForm = () => {
+  if (!formRef.value) return
+  formRef.value.resetFields()
 }
 </script>
+
+<style scoped>
+.registration-form {
+  padding: 20px;
+}
+
+.password-hint {
+  font-size: 12px;
+  color: pink;
+  margin-top: 5px;
+}
+</style>
