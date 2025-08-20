@@ -1,40 +1,21 @@
 <template>
   <div class="registration-form">
-    <el-form 
-      :model="form" 
-      label-width="100px" 
-      style="max-width: 500px" 
-      :rules="rules" 
-      ref="formRef"
-    >
+    <el-form :model="form" label-width="100px" style="max-width: 500px" :rules="rules" ref="formRef">
       <el-form-item label="用户名" prop="username">
-        <el-input 
-          v-model="form.username" 
-          placeholder="请输入用户名" 
-        />
+        <el-input v-model="form.username" placeholder="请输入用户名" />
       </el-form-item>
-      
+
       <el-form-item label="密码" prop="password">
-        <el-input 
-          v-model="form.password" 
-          type="password" 
-          show-password
-          placeholder="请输入密码" 
-        />
+        <el-input v-model="form.password" type="password" show-password placeholder="请输入密码" />
         <div v-if="form.password" class="password-hint">
           当前长度: {{ form.password.length }} 位 (至少6位)
         </div>
       </el-form-item>
-      
+
       <el-form-item label="确认密码" prop="confirmPassword">
-        <el-input 
-          v-model="form.confirmPassword" 
-          type="password" 
-          show-password
-          placeholder="请再次输入密码" 
-        />
+        <el-input v-model="form.confirmPassword" type="password" show-password placeholder="请再次输入密码" />
       </el-form-item>
-      
+
       <el-form-item label="居住地" prop="region">
         <el-select v-model="form.region" placeholder="请选择居住地" style="width: 100%">
           <el-option label="上海" value="shanghai" />
@@ -51,14 +32,14 @@
           <el-option label="浙江" value="zhejiang" />
         </el-select>
       </el-form-item>
-      
+
       <el-form-item label="身份配置" prop="userType">
         <el-radio-group v-model="form.userType">
           <el-radio label="user">用户</el-radio>
           <el-radio label="admin">管理员</el-radio>
         </el-radio-group>
       </el-form-item>
-      
+
       <el-form-item>
         <el-button type="primary" @click="onSubmit">注册</el-button>
         <el-button @click="resetForm" style="margin-left: 10px">重置</el-button>
@@ -71,7 +52,9 @@
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
-
+import { userAPI } from '../../../api/user.js'
+import type { Login } from '../../../types/user'
+import {useRouter} from 'vue-router'
 // 表单引用
 const formRef = ref<FormInstance>()
 
@@ -118,6 +101,7 @@ const rules = reactive<FormRules>({
   ]
 })
 
+let router = useRouter()
 // 提交表单
 const onSubmit = async () => {
   if (!formRef.value) return
@@ -125,13 +109,20 @@ const onSubmit = async () => {
   try {
     const valid = await formRef.value.validate()
     if (valid) {
-      console.log('表单提交数据:', form)
-      ElMessage.success('注册成功!')
       // 这里可以添加实际的注册逻辑，如调用 API
+      const regData: Login = {
+        account: form.username,
+        password: form.password
+      }
+    }
+    const response = await userAPI.registerUser(regData)
+    if (response) {
+      ElMessage.success('注册成功!')
+      router.push('/loginview/logform')
     }
   } catch (error) {
     console.log('验证失败:', error)
-    ElMessage.error('请检查表单填写内容')
+    ElMessage.error('注册失败')
   }
 }
 

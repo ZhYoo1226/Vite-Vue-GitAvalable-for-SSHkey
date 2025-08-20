@@ -32,11 +32,13 @@
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
-
+import { userAPI } from '../../../api/user.js'
+import type { Login } from '../../../types/user'
+import { useRouter } from 'vue-router'
 // 表单引用
 const formRef = ref<FormInstance>()
 const loading = ref(false)
-
+const router = useRouter()
 // 表单数据
 const form = reactive({
     username: '',
@@ -66,25 +68,39 @@ const onSubmit = async () => {
         const valid = await formRef.value.validate()
 
         if (valid) {
-            console.log('登录表单数据:', form)
-            ElMessage.success('登录成功!')
-
+            const loginData: Login = {
+                account: form.username,
+                password: form.password
+            }
+            const response = await userAPI.getUserByAccount(form.username)
             // 这里可以添加实际的登录逻辑，如调用 API
             // await loginAPI(form.username, form.password)
 
-            // 如果需要记住用户，可以保存到 localStorage
-            if (form.rememberMe) {
-                localStorage.setItem('rememberedUser', form.username)
-            } else {
-                localStorage.removeItem('rememberedUser')
-            }
+            if (response && response.data && response.data.length > 0) {
+        // 简单的验证（实际应该有专门的登录接口）
+        const user = response.data[0]
+        if (user.password === form.password) {
+          console.log('登录成功:', user)
+          ElMessage.success('登录成功!')
+          
+          // 保存用户信息到本地存储
+          localStorage.setItem('currentUser', JSON.stringify(user))
+          
+          // 跳转到首页
+          router.push('/homepage')
+        } else {
+          ElMessage.error('密码错误')
         }
-    } catch (error) {
-        console.log('验证失败:', error)
-        ElMessage.error('请检查用户名和密码')
-    } finally {
-        loading.value = false
+      } else {
+        ElMessage.error('用户不存在')
+      }
     }
+  } catch (error) {
+    console.log('登录失败:', error)
+    ElMessage.error(error.message || '登录失败')
+  } finally {
+    loading.value = false
+  }
 }
 
 // 重置表单

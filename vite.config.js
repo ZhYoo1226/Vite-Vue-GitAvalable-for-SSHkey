@@ -42,7 +42,7 @@ export default defineConfig(({ command, mode }) => {
       }),],
     server: {
       port: 3000,
-      proxy: {
+      proxy: { 
         "/api360": {
           target: "https://www.360.com",
           changeOrigin: 1,
