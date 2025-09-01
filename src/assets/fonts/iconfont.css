@@ -1,0 +1,30 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1756696430449') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-dianshang:before {
+  content: "\e621";
+}
+
+.icon-yanjing:before {
+  content: "\e7a4";
+  font-size: 70px;
+}
+
+.icon-fangdajing:before {
+  content: "\e848";
+}
+
+.icon-1_yanjing:before {
+  content: "\e6b0";
+}
+
