@@ -1,0 +1,58 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1239417",
+      "name": "in",
+      "font_class": "in",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "2746603",
+      "name": "地球",
+      "font_class": "diqiu",
+      "unicode": "e689",
+      "unicode_decimal": 59017
+    },
+    {
+      "icon_id": "5023641",
+      "name": "播放",
+      "font_class": "bofang",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "10485793",
+      "name": "facebook",
+      "font_class": "facebook",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "14452447",
+      "name": "喜鹊圆",
+      "font_class": "xiqueyuan",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "24736960",
+      "name": "电话",
+      "font_class": "dianhua",
+      "unicode": "ed0c",
+      "unicode_decimal": 60684
+    },
+    {
+      "icon_id": "28799400",
+      "name": "browser-internet-communication-network-search-seo-",
+      "font_class": "browser-internet-communication-network-search-seo-",
+      "unicode": "ea3e",
+      "unicode_decimal": 59966
+    }
+  ]
+}

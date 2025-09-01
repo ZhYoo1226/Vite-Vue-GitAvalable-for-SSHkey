@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../src/assets/fonts/iconfont.css" />
+    <link rel="stylesheet" href="../src/assets/fonts/cssM/iconfont.css" />
     <style>
       .container {
         width: 500px;
@@ -14,8 +14,8 @@
       .a {
         width: 200px;
         height: 100px;
-        background-color: #222;
         float:left;
+        animation: act1 10s linear 0.5s infinite normal;
       }
       .b {
         width: 47px;
@@ -42,6 +42,18 @@
       @media screen and (min-width: 768px) and (max-width: 996px) {
       }
       @media screen and (min-width: 996px) {
+      }
+
+      @keyframes act1 {
+        0%{
+            background-color: cadetblue;
+        }
+        50%{
+            background-color: aqua;
+        }
+        100%{
+            background-color: blueviolet;
+        }
       }
     </style>
   </head>
