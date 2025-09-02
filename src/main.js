@@ -3,6 +3,7 @@ import './styles/style.css'
 import App from './App.vue'
 import router from './router/index'
 import ElementPlus from 'element-plus'
+import axios from 'axios'
 
 createApp(App).use(router,ElementPlus).mount('#app')
 
@@ -25,3 +26,20 @@ fetch('/apibd').then((data)=>{
 }).catch((err)=>{
     console.log(err)
 })
+
+let path = '/apibd'
+//定义异步函数 async
+async function getData(url) {
+    //异步函数内部调用异步函数 await
+    let promise = await axios.get(url)
+    let data = promise.data
+    return data
+}
+
+//调用异步函数，Promise链
+getData(path)
+    .then(
+        data => console.log("data:", data)
+    ).catch(err=>{
+        console.log('err:',err)
+    })

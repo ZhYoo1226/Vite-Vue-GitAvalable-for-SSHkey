@@ -1,8 +1,8 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
 import loginpage from '@Login/LoginPage.vue'
-import logform from '@business/logform.vue'
-import regform from '@business/regform.vue'
+import logform from '@forms/logform.vue'
+import regform from '@forms/regform.vue'
 import loginview from '@business/loginview.vue'
 
 const routes = [

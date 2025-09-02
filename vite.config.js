@@ -63,6 +63,7 @@ export default defineConfig(({ command, mode }) => {
         "@": path.resolve(__dirname , './src'),
         "@business": path.resolve(__dirname,'src/components/business'),
         "@common":path.resolve(__dirname,'src/components/common'),
+        "@forms":path.resolve(__dirname,'src/components/common/forms'),
         "@Login":path.resolve(__dirname,'src/views/Login')
       }
     },
