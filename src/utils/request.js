@@ -1,51 +1,42 @@
-// src/utils/request.js
 import axios from 'axios'
 
-// 创建 axios 实例
-const service = axios.create({
-  baseURL: 'http://localhost:8080', // 后端服务器地址
-  timeout: 5000, // 请求超时时间
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
+const server = axios.create(
+  baseURL = 'https://localhost:5500/api',
+  timeout = 1000,
+  headers = {
 
-// 请求拦截器
-service.interceptors.request.use(
-  config => {
-    // 在发送请求之前做些什么
+  }
+)
+
+const E = {
+  "5":" 服务端问题 ",
+  "4":" 客户端问题 ",
+  "3":" 资源重定向 ",
+  "2":" 成功取资源 "
+}
+
+server.interceptors.request.use(
+  request => {
     const token = localStorage.getItem('token')
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`
+    if(token) {
+      request.headers.Authorization = token
     }
-    return config
+    return request
   },
   error => {
-    // 对请求错误做些什么
     console.log(error)
     return Promise.reject(error)
   }
 )
 
-// 响应拦截器
-service.interceptors.response.use(
+server.interceptors.response.use(
   response => {
-    // 对响应数据做点什么
-    const res = response.data
-    
-    // 根据后端返回的状态码处理
-    if (res.code !== 200) {
-      console.error('请求错误:', res.message || 'Error')
-      return Promise.reject(new Error(res.message || 'Error'))
-    } else {
-      return res
-    }
+    let status = response.status.toString().charAt(0)
+    console.log("状态码映射信息：",E[status])
+    return response.data
   },
   error => {
-    // 对响应错误做点什么
-    console.log('err' + error)
+    console.log("error对象",error)
     return Promise.reject(error)
   }
 )
-
-export default service
