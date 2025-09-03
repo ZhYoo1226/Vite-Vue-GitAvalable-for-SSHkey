@@ -1,56 +1,45 @@
-// src/api/user.js
-import request from '@/utils/request'
+import server from '../utils/request'
 
-// 用户相关 API
-export const userAPI = {
-  // 查询所有用户
+const userAPI = {
   getAllUsers() {
-    return request({
+    return server({
       url: '/user/list',
       method: 'get'
     })
   },
-
-  // 根据账号查询用户
   getUserByAccount(account) {
-    return request({
+    return server({
       url: `/user/${account}`,
       method: 'get'
     })
   },
-
-  // 删除用户
   deleteUserById(id) {
-    return request({
+    return server({
       url: `/user/${id}`,
       method: 'delete'
     })
   },
-
-  // 注册用户
   registerUser(loginData) {
-    return request({
+    return server({
       url: '/user/new',
       method: 'post',
       data: loginData
     })
   },
-
-  // 更新用户信息
   updateUser(userDTO) {
-    return request({
+    return server({
       url: '/user/updateuser',
       method: 'put',
       data: userDTO
     })
   },
-
-  // 修改密码
   updatePassword(passwordData) {
-    return request({
+    return server({
       url: '/user/updatePassword',
       method: 'post',
       data: passwordData
     })
   }
 }
+
+export default userAPI

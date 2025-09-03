@@ -52,7 +52,7 @@
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
-import { userAPI } from '../../../api/user.js'
+import userAPI from '../../../api/user.js'
 import type { Login } from '../../../types/user'
 import {useRouter} from 'vue-router'
 // 表单引用

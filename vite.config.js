@@ -28,7 +28,7 @@ export default defineConfig(({ command, mode }) => {
     console.log('你并未学会vite的script启动方法', 'comand为', command)
   }
 
-  console.log("__dirname是",__dirname)
+  console.log("NODE的工作目录是",__dirname)
 
   return {
     envPrefix: 'VITE_',
@@ -43,23 +43,18 @@ export default defineConfig(({ command, mode }) => {
     server: {
       port: 3000,
       proxy: { 
-        "/api360": {
-          target: "https://www.360.com",
+        "/api": {
+          target: "http://localhost:8080",
           changeOrigin: 1,
-          rewrite: (path) => path.replace(/^\/api360/, '')
+          rewrite: (path) => path.replace(/^\/api/, '')
         },
-        "/apibd": {
-          target: "https://www.baidu.com",
-          changeOrigin: 1,
-          rewrite: (path) => path.replace(/^\/apibd/, '')
-        }
       }
     },
     resolve: {
       alias: {
         //path.resolve的参数问题
         //绝对根目录+相对路径（可以./ or 可以不写）
-        //注意：函数使用,分隔  不能写成/src（绝对路径）
+        //注意：函数使用,分隔  不能写成/src（绝对s路径）
         "@": path.resolve(__dirname , './src'),
         "@business": path.resolve(__dirname,'src/components/business'),
         "@common":path.resolve(__dirname,'src/components/common'),
