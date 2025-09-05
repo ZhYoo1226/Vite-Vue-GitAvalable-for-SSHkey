@@ -4,7 +4,7 @@ import path from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
+import tailwindcss from '@tailwindcss/vite'
 
 
 // https://vite.dev/config/
@@ -28,7 +28,7 @@ export default defineConfig(({ command, mode }) => {
     console.log('你并未学会vite的script启动方法', 'comand为', command)
   }
 
-  console.log("NODE的工作目录是",__dirname)
+  console.log("NODE的工作目录是", __dirname)
 
   return {
     envPrefix: 'VITE_',
@@ -39,10 +39,13 @@ export default defineConfig(({ command, mode }) => {
       }),
       Components({
         resolvers: [ElementPlusResolver()],
-      }),],
+      }),
+      tailwindcss(),
+    ],
     server: {
       port: 3000,
-      proxy: { 
+      host: '0.0.0.0',
+      proxy: {
         "/api": {
           target: "http://localhost:8080",
           changeOrigin: 1,
@@ -55,15 +58,16 @@ export default defineConfig(({ command, mode }) => {
         //path.resolve的参数问题
         //绝对根目录+相对路径（可以./ or 可以不写）
         //注意：函数使用,分隔  不能写成/src（绝对s路径）
-        "@": path.resolve(__dirname , './src'),
-        "@business": path.resolve(__dirname,'src/components/business'),
-        "@common":path.resolve(__dirname,'src/components/common'),
-        "@forms":path.resolve(__dirname,'src/components/common/forms'),
-        "@Login":path.resolve(__dirname,'src/views/Login')
+        "@": path.resolve(__dirname, './src'),
+        "@business": path.resolve(__dirname, 'src/components/business'),
+        "@common": path.resolve(__dirname, 'src/components/common'),
+        "@forms": path.resolve(__dirname, 'src/components/common/forms'),
+        "@Login": path.resolve(__dirname, 'src/views/Login'),
+        "@cards": path.resolve(__dirname, 'src/components/common/cards')
       }
     },
     build: {
       outDir: "dist"
-    }
+    },
   }
 })

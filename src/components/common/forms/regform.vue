@@ -43,6 +43,7 @@
       <el-form-item>
         <el-button type="primary" @click="onSubmit">注册</el-button>
         <el-button @click="resetForm" style="margin-left: 10px">重置</el-button>
+        <B></B>
       </el-form-item>
     </el-form>
   </div>
@@ -54,7 +55,8 @@ import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
 import userAPI from '../../../api/user.js'
 import type { Login } from '../../../types/user'
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
+import B from '../buttons/B-form.vue'
 // 表单引用
 const formRef = ref<FormInstance>()
 
@@ -130,6 +132,13 @@ const onSubmit = async () => {
 const resetForm = () => {
   if (!formRef.value) return
   formRef.value.resetFields()
+
+  let user_list = userAPI.getAllUsers()
+  user_list.then(data => {
+    console.log("用户列表：", data)
+  }).catch(error => {
+    console.log("业务代码调用错误如下：", error)
+  })
 }
 </script>
 

@@ -4,7 +4,9 @@ import loginpage from '@Login/LoginPage.vue'
 import logform from '@forms/logform.vue'
 import regform from '@forms/regform.vue'
 import loginview from '@business/loginview.vue'
-
+import usercard from '@cards/Usercard.vue'
+import skewCard from '@cards/skewCard.vue' 
+import component from 'element-plus/es/components/tree-select/src/tree-select-option.mjs'
 const routes = [
     {
         name: '',
@@ -27,6 +29,16 @@ const routes = [
             { name: 'logform', path: 'logform', component: logform },
             { name: 'regform', path: 'regform', component: regform }
         ]
+    },
+    {
+        name: 'usercard',
+        path: '/usercard',
+        component: usercard
+    },
+    {
+        name: 'skewCard',
+        path: '/skewCard',
+        component: skewCard
     }
 
 ]
