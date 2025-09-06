@@ -5,8 +5,9 @@ import logform from '@forms/logform.vue'
 import regform from '@forms/regform.vue'
 import loginview from '@business/loginview.vue'
 import usercard from '@cards/Usercard.vue'
-import skewCard from '@cards/skewCard.vue' 
-import component from 'element-plus/es/components/tree-select/src/tree-select-option.mjs'
+import skewCard from '@cards/skewCard.vue'
+import grid_parent from "../components/common/layouts/grid_parent.vue"
+import grand from "../components/common/layouts/grid_grand.vue"
 const routes = [
     {
         name: '',
@@ -17,8 +18,8 @@ const routes = [
         name: 'loginpage',
         path: '/loginpage',
         component: loginpage,
-        children:[
-            {path:'',redirect:'/loginview'}
+        children: [
+            { path: '', redirect: '/loginview' }
         ]
     },
     {
@@ -39,7 +40,19 @@ const routes = [
         name: 'skewCard',
         path: '/skewCard',
         component: skewCard
-    }
+    },
+    {
+        name: 'grand',
+        path: '/grand',
+        component: grand,
+        children: [
+            {
+                name: 'parent',
+                path: 'parent',
+                component: grid_parent
+            }
+        ]
+    },
 
 ]
 

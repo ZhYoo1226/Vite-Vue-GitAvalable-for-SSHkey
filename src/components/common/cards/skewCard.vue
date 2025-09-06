@@ -25,7 +25,7 @@
     place-items: center;
     border: 2px solid violet;
     position: relative;
-    box-shadow: 0px 0px 30px -10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 30px -10px rgba(50, 23, 23, 0.3);
 }
 
 .card {
